@@ -1,5 +1,5 @@
 {
-    "user": "",
-    "password": "",
-    "connectString": ""
+    "user": "C##adas9",
+    "password": "Password123",
+    "connectString": "localhost:1521/xe"
 }
