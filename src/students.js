@@ -5,11 +5,13 @@ const { getConnection } = require('../connection'); // Assuming you have the get
 router.post('/', async (req, res) => {
   try {
     const connection = await getConnection();
-    const { bid, first_name, last_name, st_level, gpa, email, bdate } = req.body;
+    const { firstName, lastName, studentLevel, gpa, email, birthdate } = req.body;
     const result = await connection.execute(
-      `INSERT INTO Students (bid, first_name, last_name, st_level, gpa, email, bdate) VALUES (:1, :2, :3, :4, :5, :6, TO_DATE(:7, 'YYYY-MM-DD'))`,
-      [bid, first_name, last_name, st_level, gpa, email, bdate]
+      `INSERT INTO Students (first_name, last_name, st_level, gpa, email, bdate) VALUES (:1, :2, :3, :4, :5, TO_DATE(:6, 'YYYY-MM-DD'))`,
+      [ firstName, lastName, studentLevel, gpa, email, birthdate ]
     );
+
+    console.log("Create Student ===> ", result);
     res.status(201).send('Student created successfully');
   } catch (error) {
     console.error(error);
