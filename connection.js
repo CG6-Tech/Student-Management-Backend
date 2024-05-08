@@ -1,8 +1,7 @@
 const oracledb = require('oracledb');
 
-const dbConfig = require("./connection.configl.json");
+const dbConfig = require("./connection.config.json");
 
-console.log(dbConfig)
 
 async function getConnection() {
   let connection;
