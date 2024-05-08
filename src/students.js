@@ -6,10 +6,10 @@ router.post('/', async (req, res) => {
   try {
     const connection = await getConnection();
     const {bid, firstName, lastName, studentLevel, gpa, email, birthdate } = req.body;
-    const result = await connection.execute(
-      `INSERT INTO Students (B# ,first_name, last_name, st_level, gpa, email, bdate) VALUES (:1, :2, :3, :4, :5, :6, TO_DATE(:7, 'YYYY-MM-DD'))`,
-      [bid, firstName, lastName, studentLevel, gpa, email, birthdate ]
-    );
+
+    const query = `INSERT INTO Students (B# ,first_name, last_name, st_level, gpa, email, bdate) VALUES (${bid}, ${firstName}, ${lastName}, ${studentLevel}, ${gpa}, ${email}, TO_DATE(${birthdate}, 'YYYY-MM-DD'))`;
+    console.log(query);
+    const result = await connection.execute(query);
 
     console.log("Create Student ===> ", result);
     res.status(201).send('Student created successfully');
