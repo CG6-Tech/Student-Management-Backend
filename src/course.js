@@ -21,7 +21,18 @@ router.get('/', async (req, res) => {
   try {
     const connection = await getConnection();
     const result = await connection.execute('SELECT * FROM Courses');
-    res.json(result.rows);
+    
+    const columnNames = result.metaData.map(column => column.name);
+    
+    const courses = result.rows.map(row => {
+      const course = {};
+      columnNames.forEach((columnName, index) => {
+        course[columnName] = row[index];
+      });
+      return course;
+    });
+
+    res.json(courses);
   } catch (error) {
     console.error(error);
     res.status(500).send('Error fetching courses');

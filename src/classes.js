@@ -22,7 +22,18 @@ router.get('/', async (req, res) => {
   try {
     const connection = await getConnection();
     const result = await connection.execute('SELECT * FROM Classes');
-    res.json(result.rows);
+
+    const columnNames = result.metaData.map(column => column.name);
+
+    const classes = result.rows.map(row => {
+      const uclass = {};
+      columnNames.forEach((columnName, index) => {
+        uclass[columnName] = row[index];
+      });
+      return uclass;
+    });
+
+    res.json(classes);
   } catch (error) {
     console.error(error);
     res.status(500).send('Error fetching classes');
