@@ -5,11 +5,11 @@ const { getConnection } = require('../connection');
 router.post('/', async (req, res) => {
   try {
     const connection = await getConnection();
-    const { dept_code, course, title } = req.body;
-    const result = await connection.execute(
-      `INSERT INTO Courses (dept_code, course#, title) VALUES (:1, :2, :3)`,
-      [dept_code, course, title]
-    );
+    const { dept_code, courseNumber, title } = req.body;
+    const query = `INSERT INTO Courses (dept_code, course#, title) VALUES ('${dept_code}', '${courseNumber}', '${title}')`;
+    const result = await connection.execute(query);
+
+    console.log(result);
     res.status(201).send('Course created successfully');
   } catch (error) {
     console.error(error);
