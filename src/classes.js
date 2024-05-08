@@ -6,7 +6,7 @@ router.post('/', async (req, res) => {
   try {
     const connection = await getConnection();
     const { classid, dept_code, courseNumber, sectionNumber, year, semester, limit, classSize, room } = req.body;
-    const query = `INSERT INTO Classes (classid, dept_code, course#, sect#, year, semester, limit, class_size, room) VALUES ('${classid}', '${dept_code}', ${courseNumber}, '${sectionNumber}', ${year}, ${semester}, ${limit}, ${classSize}, '${room}')`;
+    const query = `INSERT INTO Classes (classid, dept_code, course#, sect#, year, semester, limit, class_size, room) VALUES ('${classid}', '${dept_code}', ${courseNumber}, ${sectionNumber}, ${year}, '${semester}', ${limit}, ${classSize}, '${room}')`;
 
     console.log(query)
     const result = await connection.execute(query);
