@@ -5,11 +5,11 @@ const { getConnection } = require('../connection');
 router.post('/', async (req, res) => {
   try {
     const connection = await getConnection();
-    const { classid, dept_code, course, sect, year, semester, limit, class_size, room } = req.body;
+    const { classid, dept_code, courseNumber, sectionNumber, year, semester, limit, classSize, room } = req.body;
     const result = await connection.execute(
       `INSERT INTO Classes (classid, dept_code, course#, sect#, year, semester, limit, class_size, room) 
       VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9)`,
-      [classid, dept_code, course, sect, year, semester, limit, class_size, room]
+      [classid, dept_code, courseNumber, sectionNumber, year, semester, limit, classSize, room]
     );
     res.status(201).send('Class created successfully');
   } catch (error) {
